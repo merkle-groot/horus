@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "status": "available",
+  "source": {
+    "repository": "https://packages.termux.dev/apt/termux-main",
+    "index": "dists/stable/main/binary-aarch64/Packages",
+    "pinnedAtUtc": "2026-09-07",
+    "packages": [
+      {
+        "name": "proot",
+        "version": "5.1.107.92",
+        "debUrl": "https://packages.termux.dev/apt/termux-main/pool/main/p/proot/proot_5.1.107.92_aarch64.deb",
+        "debSha256": "1f1c983509701f6826f568482c70673ee453a9ba38c9f5fa445a472d6b7524e9",
+        "srcurl": "https://github.com/termux/proot/archive/v5.1.107.92.zip",
+        "srcSha256": "29385d1ddb619a9c4449ab512bfd55032034b22f724ddf98fc95ff300ea32135"
+      },
+      {
+        "name": "libtalloc",
+        "version": "2.4.3",
+        "debUrl": "https://packages.termux.dev/apt/termux-main/pool/main/libt/libtalloc/libtalloc_2.4.3_aarch64.deb",
+        "debSha256": "ac81ad623d74c209718b9f3acb2dd702cc8a88c431e820d212229910b4db29da",
+        "srcurl": "https://www.samba.org/ftp/talloc/talloc-2.4.3.tar.gz",
+        "srcSha256": "dc46c40b9f46bb34dd97fe41f548b0e8b247b77a918576733c528e83abd854dd"
+      },
+      {
+        "name": "libandroidShmem",
+        "version": "0.7",
+        "debUrl": "https://packages.termux.dev/apt/termux-main/pool/main/liba/libandroid-shmem/libandroid-shmem_0.7_aarch64.deb",
+        "debSha256": "0da3a24d558b93c92bcf8d611e0826a99ff96e396b148e6cdf33b47c47c57ff6",
+        "srcurl": "https://github.com/termux/libandroid-shmem"
+      }
+    ]
+  },
+  "target": {
+    "abi": "arm64-v8a",
+    "jniPaths": {
+      "proot": "lib/arm64-v8a/libproot.so",
+      "loader": "lib/arm64-v8a/libproot_loader.so",
+      "libtalloc.so": "lib/arm64-v8a/libtalloc.so",
+      "libandroid-shmem.so": "lib/arm64-v8a/libandroid-shmem.so"
+    },
+    "artifacts": [
+      {
+        "stagedAs": "proot",
+        "jniName": "libproot.so",
+        "sizeBytes": 240880,
+        "sha256": "29c618f7f37632efc2d849f224cf58b6a475b7776ad05ab51c488b935c86c121",
+        "elf": {
+          "class": "ELF64",
+          "endian": "little",
+          "type": "DYN",
+          "machine": "AArch64"
+        },
+        "needed": [
+          "libtalloc.so",
+          "libandroid-shmem.so",
+          "libdl.so",
+          "libc.so"
+        ]
+      },
+      {
+        "stagedAs": "loader",
+        "jniName": "libproot_loader.so",
+        "sizeBytes": 18136,
+        "sha256": "44ef39c1e1a18c09f6e4c4b5d6f8bba82d30596598bd155ec162d05c5122ff04",
+        "elf": {
+          "class": "ELF64",
+          "endian": "little",
+          "type": "EXEC",
+          "machine": "AArch64"
+        },
+        "needed": []
+      },
+      {
+        "stagedAs": "libtalloc.so",
+        "jniName": "libtalloc.so",
+        "sizeBytes": 31440,
+        "sha256": "34c92182bdbda07e009eaa09afa852c575c566691786ca456b28778222ba0afc",
+        "elf": {
+          "class": "ELF64",
+          "endian": "little",
+          "type": "DYN",
+          "machine": "AArch64"
+        },
+        "needed": [
+          "libc.so"
+        ]
+      },
+      {
+        "stagedAs": "libandroid-shmem.so",
+        "jniName": "libandroid-shmem.so",
+        "sizeBytes": 14432,
+        "sha256": "84475798e07c8174dbbfaec70a827fdb02f19ffa69a589380c13e7507fd0e731",
+        "elf": {
+          "class": "ELF64",
+          "endian": "little",
+          "type": "DYN",
+          "machine": "AArch64"
+        },
+        "needed": [
+          "liblog.so",
+          "libc.so"
+        ]
+      }
+    ],
+    "sizeBudgetBytes": 8388608
+  },
+  "licenses": [
+    {
+      "name": "GNU General Public License v2.0",
+      "spdx": "GPL-2.0-only"
+    },
+    {
+      "name": "GNU General Public License v3.0 (Termux package declaration; talloc library is LGPL-3.0-or-later upstream)",
+      "spdx": "GPL-3.0-only"
+    },
+    {
+      "name": "BSD 2-Clause Style (Pylypenko/Fornwall)",
+      "spdx": "BSD-2-Clause"
+    }
+  ],
+  "sbom": [
+    {
+      "name": "proot",
+      "version": "5.1.107.92"
+    },
+    {
+      "name": "libtalloc",
+      "version": "2.4.3"
+    },
+    {
+      "name": "libandroidShmem",
+      "version": "0.7"
+    }
+  ],
+  "packaging": {
+    "mechanism": "APK JNI library path",
+    "forbidAssetExtractionAsExecutable": true,
+    "launcherContract": {
+      "executable": "libproot.so",
+      "loaderEnv": "PROOT_LOADER=libproot_loader.so (compiled-in Termux paths are never used)",
+      "sharedLibraryPath": "LD_LIBRARY_PATH=nativeLibraryDir (resolves libtalloc.so.2, libandroid-shmem.so)",
+      "envMarkers": [
+        "PROOT_LOADER",
+        "PROOT_LOADER_32"
+      ]
+    }
+  },
+  "build": {
+    "script": "scripts/alpine-poc/acquire-proot.mjs",
+    "note": "PRoot 5.1.107.92 rebuilt for Android from the pinned Termux source with the bounded fork-child recovery and Android outer-seccomp compatibility patches below; dependent libraries remain the pinned Termux artifacts",
+    "patches": [
+      {
+        "change": "DT_NEEDED/DT_SONAME string libtalloc.so.2 -> libtalloc.so (in-place NUL re-termination, identical length, library bytes unchanged)",
+        "files": [
+          "proot",
+          "libtalloc.so"
+        ],
+        "reason": "Android JNI-library packaging ships only lib*.so file names; the dependency is resolved by the shortened name via LD_LIBRARY_PATH"
+      },
+      {
+        "change": "Recover a unique uninitialized fork/clone child, including pending SIGSTOP entries and CLONE_THREAD tasks, using host Tgid/PPid/TracerPid from /proc; fail explicitly if recovery is missing or ambiguous",
+        "files": [
+          "proot"
+        ],
+        "reason": "The child stop can precede its parent's event, and thread IDs are absent from /proc directory enumeration. Accept only this tracer's uninitialized child with the clone-appropriate relationship; avoid lookup side effects and PID-order guesses",
+        "sourcePatch": "scripts/alpine-poc/proot-android-fork-child.patch"
+      },
+      {
+        "change": "Handle Android outer-seccomp traps for fchmodat, chdir/fchdir/getcwd, faccessat/faccessat2, renameat2, and guest identity calls inside PRoot's seccomp event path",
+        "files": [
+          "proot"
+        ],
+        "reason": "Android 16 app processes can inherit a zygote seccomp policy that returns ENOSYS for filesystem calls even when PRoot's own seccomp filter is disabled; these bounded handlers preserve guest path state and compatibility",
+        "sourcePatch": "scripts/alpine-poc/proot-android-fork-child.patch"
+      }
+    ]
+  }
+}
